@@ -1,6 +1,6 @@
 package Abstract;
 
-public  abstract class CommonUser {
+public abstract class CommonUser {
     private String id;
     private String name;
     private String password;

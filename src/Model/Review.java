@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.Date;
+import java.util.*;
 
 public class Review {
     private int score;
@@ -8,12 +8,24 @@ public class Review {
     private Date datetime;
     private int duration;
 
-    public String getReview() {
-        return description;
+    public static void displayReview(CoworkingSpace space) {
+        HashMap<User,Review> user = space.getUserReviews();
+        user.forEach((key, value) -> {
+            System.out.println("Ditulis oleh: " + key.getName());
+            System.out.println("Tanggal: " + value.getDatetime());
+            System.out.println("Durasi: " + value.getDuration());
+            System.out.println("Rating: " + value.getScore());
+            System.out.println("Ulasan: " + value.getDescription());
+            System.out.println();
+        });
     }
 
-    private static Review createReview(int score, String description, Date datetime, int duration) {
+    public static Review createReview(int score, String description, Date datetime, int duration) {
         return new Review(score, description, datetime, duration);
+    }
+
+    public String getReview() {
+        return description;
     }
 
     public Review(int score, String description, Date datetime, int duration) {
@@ -23,7 +35,19 @@ public class Review {
         this.duration = duration;
     }
 
-    public void displayReview() {
+    public int getScore() {
+        return score;
+    }
 
+    public String getDescription(){
+        return description;
+    }
+
+    public Date getDatetime(){
+        return datetime;
+    }
+
+    public int getDuration(){
+        return duration;
     }
 }

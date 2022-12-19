@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bookmark {
+public class Bookmark{
     private List<CoworkingSpace> daftarCoworkingSpace;
 
     public Bookmark(List<CoworkingSpace> daftarCoworkingSpace) {
@@ -14,7 +14,7 @@ public class Bookmark {
         return daftarCoworkingSpace;
     }
 
-    public boolean insert(CoworkingSpace cospace) {
+    public boolean insert(CoworkingSpace cospace){
         return daftarCoworkingSpace.add(cospace);
     }
 
