@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Array;
 import java.util.*;
 
 public class CoworkingSpace {
@@ -43,10 +44,39 @@ public class CoworkingSpace {
         try {
             Reservation reservasi = new Reservation(user, date, duration, rooms, note, ReservationStatus.PENDING);
 
+            // check if there are the same reservation with the same date
+            for (Reservation reservation : listReservation) {
+                if (reservation.getDate().equals(date) && reservation.getDuration() == duration) {
+                    return false;
+                }
+            }
+
             for (Room room : rooms) {
                 room.addReservation(reservasi);
             }
             
+            listReservation.add(reservasi);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean makeReservation(User user, Room room, Date date, int duration, String note) {
+        try {
+            ArrayList<Room> daftarRoom = new ArrayList<>();
+            daftarRoom.add(room);
+
+            Reservation reservasi = new Reservation(user, date, duration, daftarRoom, note, ReservationStatus.PENDING);
+
+            // check if there are the same reservation with the same date
+            for (Reservation reservation : listReservation) {
+                if (reservation.getDate().equals(date) && reservation.getDuration() == duration) {
+                    return false;
+                }
+            }
+
+            room.addReservation(reservasi);
             listReservation.add(reservasi);
         } catch (Exception e) {
             return false;
@@ -130,6 +160,10 @@ public class CoworkingSpace {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Review> getListUserReviews() {
+        return new ArrayList<>(userReviews.values());
     }
 
     public HashMap<User, Review> getUserReviews() {

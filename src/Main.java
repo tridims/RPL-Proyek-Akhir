@@ -2,6 +2,7 @@ import Model.*;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Main {
         Owner owner = new Owner(new ArrayList<>());
         Catalog catalog = new Catalog(new ArrayList<>());
 
-        // Use case pendataan coworking space
+        // =========== USE CASE PENDATAAN COWORKING SPACE ===========
         CoworkingSpace cospace = new CoworkingSpace("cospace 1", "Outdoor, Indoor", "Jl Veteran, Malang", new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         owner.registerCoworkingSpace(cospace);
         catalog.insertCoworkingSpace(cospace);
@@ -22,7 +23,7 @@ public class Main {
         cospace.addRoom(room1);
         cospace.addRoom(room2);
 
-        // Use case pencarian
+        // =========== USE CASE PENCARIAN ===========
         List<CoworkingSpace> hasilSearch = catalog.searchCoworkingSpace("cospace 1");
         for (CoworkingSpace c : hasilSearch) {
             System.out.println(c.getName());
@@ -33,11 +34,46 @@ public class Main {
             System.out.println(c.getName());
         }
 
-        // Use case bookmark
+        // =========== USE CASE BOOKMARK ===========
+        List<CoworkingSpace> daftar = catalog.getListCoworkingSpace();
+        CoworkingSpace selected = daftar.get(0);
 
-        // Use case reservasi
+        user.addToBookmark(selected);
+        List<CoworkingSpace> daftarBookmark = user.getListBookmarked();
+        for (CoworkingSpace c : daftarBookmark) {
+            System.out.println(c.getName());
+        }
 
-        // Use case menambahkan review
+        user.removeFromBookmark(selected);
+        daftarBookmark = user.getListBookmarked();
+        for (CoworkingSpace c : daftarBookmark) {
+            System.out.println(c.getName());
+        }
 
+        // =========== USE CASE RESERVASI TEMPAT ===========
+
+        // user membuat reservasi
+        CoworkingSpace selectedCoworkingSpace = catalog.getListCoworkingSpace().get(0);
+        Room selectedRoom = selectedCoworkingSpace.getListRoom().get(0);
+        selectedCoworkingSpace.makeReservation(user, selectedRoom, new Date(), 5, "Reservasi untuk 10 Orang ya");
+
+        // owner melihat permintaan reservasi dan menerima permintaan reservasi
+        List<Reservation> daftarReservasi = selectedCoworkingSpace.getListReservation();
+        for (Reservation reservation: daftarReservasi) {
+            System.out.println(reservation.getUser().getName());
+            System.out.println(reservation.getDuration());
+            System.out.println(reservation.getNote());
+            System.out.println(reservation.getStatus());
+        }
+        Reservation selectedReservation = daftarReservasi.get(0);
+        selectedReservation.setStatus(ReservationStatus.ACCEPTED);
+
+        // =========== USE CASE REVIEW ===========
+        user.makeReview(selectedCoworkingSpace, 5, "Bagus banget");
+        List<Review> daftarReview = selectedCoworkingSpace.getListUserReviews();
+        for (Review review: daftarReview) {
+            System.out.println(review.getScore());
+            System.out.println(review.getReview());
+        }
     }
 }
