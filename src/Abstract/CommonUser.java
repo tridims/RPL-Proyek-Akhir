@@ -1,5 +1,7 @@
 package Abstract;
 
+import java.util.UUID;
+
 public abstract class CommonUser {
     private String id;
     private String name;
@@ -7,6 +9,15 @@ public abstract class CommonUser {
     private String email;
     private String address;
     private String phoneNumber;
+
+    public CommonUser(String name, String password, String email, String address, String phoneNumber) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     public boolean login(String email, String password) {
         return email.equals(this.email) && password.equals(this.password);

@@ -8,7 +8,8 @@ import java.util.List;
 public class Owner extends CommonUser {
     private ArrayList<CoworkingSpace> coworkingPlaces;
 
-    public Owner(ArrayList<CoworkingSpace> coworkingPlaces){
+    public Owner(String name, String password, String email, String address, String phoneNumber, ArrayList<CoworkingSpace> coworkingPlaces){
+        super(name, password, email, address, phoneNumber);
         this.coworkingPlaces = coworkingPlaces;
     }
 

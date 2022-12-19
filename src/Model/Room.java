@@ -45,4 +45,16 @@ public class Room {
     public boolean addReservation(Reservation newReservation) {
         return listReservation.add(newReservation);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFacility() {
+        return facility;
+    }
 }

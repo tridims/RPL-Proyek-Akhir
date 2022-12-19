@@ -7,7 +7,8 @@ import java.util.List;
 public class User extends CommonUser {
     private Bookmark bookmark;
 
-    public User(Bookmark bookmark) {
+    public User(String name, String password, String email, String address, String phoneNumber, Bookmark bookmark) {
+        super(name, password, email, address, phoneNumber);
         this.bookmark = bookmark;
     }
 
